@@ -218,8 +218,8 @@ void LinePlanner::setSpeed(double speed) {
   MachineState::setSpeed(speed);
 
   if (this->speed != speed) {
-    this->speed = speed*10;
-    pushSetCommand("speed", speed*10);
+    this->speed = speed;
+    pushSetCommand("speed", speed);
   }
 }
 
