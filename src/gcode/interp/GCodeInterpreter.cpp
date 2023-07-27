@@ -195,6 +195,7 @@ string GCodeInterpreter::canonical(const string &name) const {
 
 
 void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
+  LOG_WARNING('custom log trail empty string 198: GCodeInterpreter');
   if (block->isDeleted()) return;
 
   LOG_DEBUG(5, "Block: " << *block);
