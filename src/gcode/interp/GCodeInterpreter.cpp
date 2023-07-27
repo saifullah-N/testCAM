@@ -325,6 +325,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       case 'F':
         wordPriority = 3;
         if (priority == 3) controller.setFeed(word->getValue());
+        LOG_WARNING( ':' << word->getValue() << ":custom log trail");
         break;
 
       case 'S':
@@ -339,6 +340,8 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       case 'G': case 'M': {
         const Code *code = word->getCode();
+        LOG_WARNING('custom log trail empty string');
+
         if (!code) continue; // Invalid or unsupported
 
         if (priority == code->priority) {
