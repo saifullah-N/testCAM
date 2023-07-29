@@ -35,11 +35,29 @@
 #include <cbang/os/SystemUtilities.h>
 #include <cstdlib>
 #include <cctype>
+#include <iostream>
+#include <ctime>
+#include <chrono>
+#include <iomanip>
 
 using namespace std;
 using namespace cb;
 using namespace GCode;
-
+std::string getCurrentTimeWithMilliseconds()
+{
+  auto currentTime = std::chrono::system_clock::now();
+  auto currentTimeMillis = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime.time_since_epoch()).count();
+  auto seconds = currentTimeMillis / 1000;
+  auto milliseconds = currentTimeMillis % 1000;
+  std::time_t timeSeconds = static_cast<std::time_t>(seconds);
+  char buffer[80];
+  std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", std::localtime(&timeSeconds));
+  std::ostringstream oss;
+  oss << std::setfill('0') << std::setw(3) << milliseconds;
+  std::string result(buffer);
+  result += "." + oss.str() + " ms";
+  return result;
+}
 
 GCodeInterpreter::GCodeInterpreter(Controller &controller) :
   controller(controller) {}
@@ -240,6 +258,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       case 'G': case 'M':
         // Find word with lowest priority
+        LOG_WARING('time in G,M' << getCurrentTimeWithMilliseconds());
         if (!(code = word->getCode())) // Must be after eval
           LOG_WARNING(word->getCol() << ':' << *word
                       << ": Invalid or unsupported code");
@@ -324,14 +343,15 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       switch (word->getType()) {
       case 'F':{
-          wordPriority = 3;
-          const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-          double number = std::stod(envVariableValue) ;
-          double testOverride = number * double(word->getValue());
-          if (priority == 3)
-            controller.setFeed(testOverride);
-          LOG_WARNING('ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE " << testOverride);
-          break;        
+        LOG_WARING('time inside F' << getCurrentTimeWithMilliseconds());
+        wordPriority = 3;
+        const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+        double number = std::stod(envVariableValue);
+        double testOverride = number * double(word->getValue());
+        if (priority == 3)
+          controller.setFeed(testOverride);
+        LOG_WARNING('ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE " << testOverride);
+        break;        
       }        
       case 'S':
         wordPriority = 4;
