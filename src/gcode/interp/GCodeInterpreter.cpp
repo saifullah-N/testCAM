@@ -258,7 +258,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       case 'G': case 'M':
         // Find word with lowest priority
-        LOG_WARING('time in G,M' << getCurrentTimeWithMilliseconds());
+        LOG_WARNING('time in G,M' << getCurrentTimeWithMilliseconds());
         if (!(code = word->getCode())) // Must be after eval
           LOG_WARNING(word->getCol() << ':' << *word
                       << ": Invalid or unsupported code");
@@ -343,7 +343,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       switch (word->getType()) {
       case 'F':{
-        LOG_WARING('time inside F' << getCurrentTimeWithMilliseconds());
+        LOG_WARNING('time inside F' << getCurrentTimeWithMilliseconds());
         wordPriority = 3;
         const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
         double number = std::stod(envVariableValue);
