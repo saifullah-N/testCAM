@@ -33,16 +33,13 @@
 #include <cbang/log/Logger.h>
 #include <cbang/util/SmartFunctor.h>
 #include <cbang/os/SystemUtilities.h>
-#include <sw/redis++/redis++.h>
-
+#include <cstdlib>
 #include <cctype>
 
 using namespace std;
 using namespace cb;
 using namespace GCode;
-using namespace sw::redis;
 
-sw::redis::Redis redis("tcp://localhost:6379");
 
 GCodeInterpreter::GCodeInterpreter(Controller &controller) :
   controller(controller) {}
@@ -327,24 +324,14 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       switch (word->getType()) {
       case 'F':{
-        if (!value.empty()) 
-        {
           wordPriority = 3;
+          const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+          double number = std::stod(envVariableValue) 
           double testOverride = number * double(word->getValue());
           if (priority == 3)
             controller.setFeed(testOverride);
           LOG_WARNING('ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE " << testOverride);
-          break;
-        }
-        else
-        {
-          wordPriority = 3;
-          if (priority == 3)
-            controller.setFeed(word->getValue());
-          LOG_WARNING('ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE " << testOverride);
-          break;
-        }
-        
+          break;        
       }        
       case 'S':
         wordPriority = 4;
