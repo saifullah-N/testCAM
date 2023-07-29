@@ -323,13 +323,13 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       unsigned wordPriority = ~0;
 
       switch (word->getType()) {
-      case 'F':
+      case 'F':{
         wordPriority = 3;
         double testOverride = 2 * double(word->getValue()) ;
         if (priority == 3) controller.setFeed(testOverride);
         LOG_WARNING( 'ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE "<< testOverride);
         break;
-
+}
       case 'S':
         wordPriority = 4;
         if (priority == 4) controller.setSpeed(word->getValue());
