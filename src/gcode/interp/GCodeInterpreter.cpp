@@ -325,8 +325,9 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       switch (word->getType()) {
       case 'F':
         wordPriority = 3;
-        if (priority == 3) controller.setFeed(word->getValue());
-        LOG_WARNING( ':' << word->getValue() << ":custom log trail");
+        double testOverride = 2 * double(word->getValue()) 
+        if (priority == 3) controller.setFeed(testOverride);
+        LOG_WARNING( 'ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE "<< testOverride);
         break;
 
       case 'S':
