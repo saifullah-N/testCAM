@@ -327,10 +327,8 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       switch (word->getType()) {
       case 'F':{
-        std::string value = redis.get("FEED_OVERRIDE_OF");
         if (!value.empty()) 
         {
-          double number = std::stod(value);
           wordPriority = 3;
           double testOverride = number * double(word->getValue());
           if (priority == 3)
