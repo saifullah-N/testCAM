@@ -40,6 +40,7 @@
 using namespace std;
 using namespace cb;
 using namespace GCode;
+using namespace sw::redis;
 
 sw::redis::Redis redis("tcp://localhost:6379");
 
