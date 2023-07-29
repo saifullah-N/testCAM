@@ -325,7 +325,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       switch (word->getType()) {
       case 'F':
         wordPriority = 3;
-        double testOverride = 2 * double(word->getValue()) 
+        double testOverride = 2 * double(word->getValue()) ;
         if (priority == 3) controller.setFeed(testOverride);
         LOG_WARNING( 'ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE "<< testOverride);
         break;
