@@ -330,7 +330,10 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
         LOG_WARNING('time inside F' << getCurrentTimeWithMilliseconds());
         wordPriority = 3;
         const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-        double number = std::stod(envVariableValue);
+        double number = 1 
+        if (envVariableValue != NULL){
+          number = std::stod(envVariableValue);
+        }
         double testOverride = number * double(word->getValue());
         if (priority == 3)
           controller.setFeed(testOverride);
