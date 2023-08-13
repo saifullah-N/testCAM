@@ -327,10 +327,9 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       switch (word->getType()) {
       case 'F':{
-        LOG_WARNING('time inside F' << getCurrentTimeWithMilliseconds());
         wordPriority = 3;
         const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-        double number = 1 
+        double number = 1 ;
         if (envVariableValue != NULL){
           number = std::stod(envVariableValue);
         }
