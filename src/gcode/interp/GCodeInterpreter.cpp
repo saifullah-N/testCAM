@@ -43,21 +43,6 @@
 using namespace std;
 using namespace cb;
 using namespace GCode;
-std::string getCurrentTimeWithMilliseconds()
-{
-  auto currentTime = std::chrono::system_clock::now();
-  auto currentTimeMillis = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime.time_since_epoch()).count();
-  auto seconds = currentTimeMillis / 1000;
-  auto milliseconds = currentTimeMillis % 1000;
-  std::time_t timeSeconds = static_cast<std::time_t>(seconds);
-  char buffer[80];
-  std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", std::localtime(&timeSeconds));
-  std::ostringstream oss;
-  oss << std::setfill('0') << std::setw(3) << milliseconds;
-  std::string result(buffer);
-  result += "." + oss.str() + " ms";
-  return result;
-}
 
 GCodeInterpreter::GCodeInterpreter(Controller &controller) :
   controller(controller) {}
@@ -258,7 +243,6 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       case 'G': case 'M':
         // Find word with lowest priority
-        LOG_WARNING('time in G,M' << getCurrentTimeWithMilliseconds());
         if (!(code = word->getCode())) // Must be after eval
           LOG_WARNING(word->getCol() << ':' << *word
                       << ": Invalid or unsupported code");
@@ -350,7 +334,6 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
         double testOverride = number * double(word->getValue());
         if (priority == 3)
           controller.setFeed(testOverride);
-        LOG_WARNING('ACTUAL FEED :' << word->getValue() << " OVERRIDED VALUE " << testOverride);
         break;        
       }        
       case 'S':
@@ -365,7 +348,6 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
 
       case 'G': case 'M': {
         const Code *code = word->getCode();
-        LOG_WARNING('custom log trail empty string');
 
         if (!code) continue; // Invalid or unsupported
 
