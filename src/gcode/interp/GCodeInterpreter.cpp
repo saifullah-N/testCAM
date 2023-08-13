@@ -329,11 +329,11 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       case 'F':{
         wordPriority = 3;
         const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-        double number = 1 ;
+        double number = 0 ;
         if (envVariableValue != NULL){
           number = std::stod(envVariableValue);
         }
-        double testOverride = number * double(word->getValue());
+        double testOverride = double(word->getValue()) + number * double(word->getValue());
         if (priority == 3)
           controller.setFeed(testOverride);
         break;        
