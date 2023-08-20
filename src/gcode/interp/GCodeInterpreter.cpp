@@ -327,12 +327,12 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       switch (word->getType()) {
       case 'F':{
         wordPriority = 3;
-        /*const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+        const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
         double number = 0 ;
         if (envVariableValue != NULL){
           number = std::stod(envVariableValue);
-        }*/
-        double testOverride = double(word->getValue()); //+ number * double(word->getValue());
+        }
+        double testOverride = double(word->getValue()); + number * double(word->getValue());
         if (priority == 3)
           controller.setFeed(testOverride);
         break;        

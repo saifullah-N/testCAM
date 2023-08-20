@@ -296,13 +296,13 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
   checkSoftLimits(target);
 
   MachineState::move(target, axes, rapid);
-  const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+  /*const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
   double number = 0;
   if (envVariableValue != NULL)
   {
     number = std::stod(envVariableValue);
-  }
-  double feed = rapid ? numeric_limits<double>::max() : getFeed() + getFeed()*number;
+  }*/
+  double feed = rapid ? numeric_limits<double>::max() : getFeed();
   LOG_WARNING(feed);
   if (!feed) THROW("Non-rapid move with zero feed rate");
 
