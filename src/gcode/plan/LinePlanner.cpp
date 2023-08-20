@@ -297,7 +297,7 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
 
   MachineState::move(target, axes, rapid);
   const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-  double number = 1;
+  double number = 0;
   if (envVariableValue != NULL)
   {
     number = std::stod(envVariableValue);
