@@ -324,7 +324,7 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
   // Create line command
   LineCommand *lc =
     new LineCommand(start, target, feed, rapid, seeking, firstMove, config);
-    LOG_WARNING(lc->toString());
+    //LOG_WARNING(lc->toString());
 
   // Update state
   seeking = false;
