@@ -295,7 +295,7 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
   MachineState::move(target, axes, rapid);
 
   double feed = rapid ? numeric_limits<double>::max() : getFeed();
-  LOG_WARNING("Feed Value:",feed);
+  LOG_WARNING(feed);
   if (!feed) THROW("Non-rapid move with zero feed rate");
 
   // TODO Handle feed rate mode
