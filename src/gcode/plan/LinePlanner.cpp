@@ -41,6 +41,9 @@
 #include <limits>
 #include <algorithm>
 #include <complex>
+#include <cstdlib>
+#include <cctype>
+#include <iostream>
 
 using namespace cb;
 using namespace std;
@@ -293,8 +296,13 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
   checkSoftLimits(target);
 
   MachineState::move(target, axes, rapid);
-
-  double feed = rapid ? numeric_limits<double>::max() : getFeed();
+  const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+  double number = 1;
+  if (envVariableValue != NULL)
+  {
+    number = std::stod(envVariableValue);
+  }
+  double feed = rapid ? numeric_limits<double>::max() : getFeed()*number;
   LOG_WARNING(feed);
   if (!feed) THROW("Non-rapid move with zero feed rate");
 
