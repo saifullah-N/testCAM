@@ -43,7 +43,7 @@ Move::Move(MoveType type, const Axes &start, const Axes &end, double startTime,
 
 
 void Move::setFeed(double feed) {
-  this->feed = feed*5;
+  this->feed = feed;
   time = feed ? dist / feed * 60 : 0; // in seconds
 }
 
