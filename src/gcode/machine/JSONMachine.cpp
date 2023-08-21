@@ -49,7 +49,7 @@ void JSONMachine::end() {
 
 
 void JSONMachine::setFeed(double feed) {
-  double oldFeed = getFeed()*5;
+  double oldFeed = getFeed();
   MachineAdapter::setFeed(feed);
 
   if (feed != oldFeed) {
