@@ -103,7 +103,7 @@ void GCodeMachine::end() {
 
 void GCodeMachine::setFeed(double feed) {
   double oldFeed = getFeed();
-  MachineAdapter::setFeed(feed*5);
+  MachineAdapter::setFeed(feed);
 
   if (feed != oldFeed) {
     beginLine();
