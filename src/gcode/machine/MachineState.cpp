@@ -25,6 +25,9 @@
 #include <cbang/debug/Debugger.h>
 
 #include <string.h> // For memset()
+#include <iostream>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 using namespace cb;
@@ -59,9 +62,13 @@ void MachineState::end() {
   started = false;
 }
 
-
+// Feed changes.
 void MachineState::setFeed(double feed) {
-  this->feed = feed*5;
+  const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
+  double number = 0 ;
+   if (envVariableValue != NULL){
+      number = std::stod(envVariableValue);
+  this->feed = feed + feed*number;
   set("_feed", feed, METRIC);
 }
 
