@@ -71,6 +71,7 @@ void MachineState::setFeed(double feed) {
   this->feed = feed + feed*number;
   set("_feed", feed, METRIC);
 }
+}
 
 
 void MachineState::setSpeed(double speed) {
