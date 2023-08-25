@@ -65,10 +65,10 @@ void MachineState::end() {
 // Feed changes.
 void MachineState::setFeed(double feed) {
   const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-  double number = 0 ;
+  double number = 1 ;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
-  this->feed = feed + feed*number;
+  this->feed = feed*number;
   set("_feed", feed, METRIC);
 }
 }
