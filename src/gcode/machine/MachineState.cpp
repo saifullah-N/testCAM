@@ -68,9 +68,9 @@ void MachineState::setFeed(double feed) {
   double number = 0 ;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
-  this->feed = feed*number;
-  this->feed - feed;
-  set("_feed", feed, METRIC);
+      double feed_override = feed*number;
+    this->feed = feed_override
+    set("_feed", feed, METRIC);
 }
 }
 
