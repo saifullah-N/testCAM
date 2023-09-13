@@ -28,6 +28,7 @@
 #include <iostream>
 #include <ctime>
 #include <chrono>
+#include <iomanip>
 
 using namespace std;
 using namespace cb;
@@ -68,6 +69,7 @@ void MachineState::setFeed(double feed) {
   double number = 0 ;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
+      number = std::setprecision(2);
 
         this->feed = (feed*number)/2;
 }
