@@ -69,7 +69,7 @@ void MachineState::setFeed(double feed) {
   double number = 0 ;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
-      number = std::setprecision(2)*number;
+      number = std::setprecision(2) *number;
 
         this->feed = (feed*number)/2;
 }
