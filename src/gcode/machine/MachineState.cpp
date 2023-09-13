@@ -67,9 +67,10 @@ void MachineState::end() {
 void MachineState::setFeed(double feed) {
   const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
   double number = 0 ;
+  double p = 2;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
-      number = std::setprecision(2) *number;
+      number = number*pow(10,p);
 
         this->feed = (feed*number)/2;
 }
