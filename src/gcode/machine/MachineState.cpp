@@ -66,8 +66,8 @@ void MachineState::end() {
 // Feed changes.
 void MachineState::setFeed(double feed) {
   const char *envVariableValue = std::getenv("FEEDOVERRIDE_OF");
-  double number = 0 ;
-  double p = 2;
+  double number = 1 ;
+  //double p = 2;
    if (envVariableValue != NULL){
       number = std::stod(envVariableValue);
       //number = number*pow(10,p);
