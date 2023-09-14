@@ -72,7 +72,7 @@ void MachineState::setFeed(double feed) {
       number = std::stod(envVariableValue);
       //number = number*pow(10,p);
 
-        this->feed = (feed*number*2)/3;
+        this->feed = feed*number;
 }
     set("_feed", feed, METRIC);
 }
