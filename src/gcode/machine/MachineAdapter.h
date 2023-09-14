@@ -53,7 +53,7 @@ namespace GCode {
     void start() {parent->start();}
     void end() {parent->end();}
 
-    double getFeed() const {return parent->getFeed()*2.0;}
+    double getFeed() const {return parent->getFeed();}
     void setFeed(double feed) {parent->setFeed(feed);}
     feed_mode_t getFeedMode() const {return parent->getFeedMode();}
     void setFeedMode(feed_mode_t mode){parent->setFeedMode(mode);}
