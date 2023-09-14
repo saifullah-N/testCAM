@@ -302,7 +302,7 @@ void LinePlanner::move(const Axes &target, int axes, bool rapid) {
   {
     number = std::stod(envVariableValue);
   }
-  double feed = rapid ? numeric_limits<double>::max() : getFeed();
+  double feed = rapid ? numeric_limits<double>::max() : getFeed()*number;
   //LOG_WARNING(feed);
   if (!feed) THROW("Non-rapid move with zero feed rate");
 
